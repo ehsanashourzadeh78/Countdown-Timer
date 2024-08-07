@@ -2,20 +2,23 @@
 import React from "react";
 import "./style.css";
 import { render } from "@testing-library/react";
-var interval;
 class Timer extends React.Component{
   constructor(){
     super();
     this.state ={
-      time : new Date().toLocaleTimeString()
+  
+      time : 300
     }
   }
   componentDidMount(){
-    interval = setInterval(()=>{
-      this.setState({
-        time:new Date().toLocaleTimeString()
-      })
-    },1000)
+    let timer = setInterval(() => {
+      this.setState((time) => {
+        if (time === 0) {
+          clearInterval(timer);
+          return 0;
+        } else return time - 1;
+      });
+    }, 1000)
   }
   render(){
     return(
